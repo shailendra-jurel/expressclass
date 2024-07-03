@@ -18,7 +18,22 @@ let courses=[
 app.get('/courses', (req, res) => {
     res.json(courses);
 });
+app.post('/courses', (req, res) => {
+    courses.push({id:courses.length+1, name:req.body.name});
+    console.log(req.body);
+});
+app.put('/courses/:id', (req, res) => {
+    const userId=parseInt(req.params.id);
+    const course=courses.find(c=>c.id===userId);
+    if(course){
+        course.name=req.body.name;
+        res.json(course);
+    }
+    else{
+        res.status(404).send('The course with the given id was not found');
+    }
 
 
+});
 
 
