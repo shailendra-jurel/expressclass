@@ -37,3 +37,17 @@ app.put('/courses/:id', (req, res) => {
 });
 
 
+
+app.delete('/courses/:id', (req, res) => {
+    const userId=parseInt(req.params.id);
+    const course=courses.find(c=>c.id===userId);
+    if(course){
+        const index=courses.indexOf(course);
+        courses.splice(index,1);
+        res.json(course);
+    }
+    else{
+        res.status(404).send('The course with the given id was not found');
+    }
+    
+});
